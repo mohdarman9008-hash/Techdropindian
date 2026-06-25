@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechDropIndian – Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d; --card: #161616; --border: #2a2a2a;
+      --accent: #ff6b00; --accent2: #ff9a3c; --text: #f0f0f0;
+      --muted: #888; --input-bg: #1e1e1e; --radius: 12px;
+      --green: #22c55e; --red: #ef4444;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; padding: 20px; }
+
+    /* PASSWORD SCREEN */
+    .lock-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 20px; }
+    .lock-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; }
+    .lock-logo span { color: var(--accent); }
+    .lock-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px 28px; width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 16px; }
+    .lock-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; text-align: center; }
+    .lock-card p { color: var(--muted); font-size: 0.85rem; text-align: center; }
+    .lock-card input { background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; color: var(--text); font-size: 0.95rem; outline: none; width: 100%; }
+    .lock-card input:focus { border-color: var(--accent); }
+    .btn-unlock { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border: none; border-radius: 8px; padding: 13px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; width: 100%; }
+    .lock-error { color: var(--red); font-size: 0.85rem; text-align: center; display: none; }
+
+    /* ADMIN PANEL */
+    .admin-panel { display: none; max-width: 800px; margin: 0 auto; }
+    .admin-panel.show { display: block; }
+
+    .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+    .admin-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; }
+    .admin-title span { color: var(--accent); }
+    .btn-lock { background: transparent; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; padding: 8px 16px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+    .btn-lock:hover { border-color: var(--red); color: var(--red); }
+
+    /* STATS */
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; text-align: center; }
+    .stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+    /* USERS TABLE */
+    .users-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .users-card-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .users-card-header h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; }
+    .btn-refresh { background: var(--input-bg); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 6px 12px; font-size: 0.8rem; cursor: pointer; font-family: 'Inter', sans-serif; }
+
+    .user-row { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 6px; }
+    .user-row:last-child { border-bottom: none; }
+    .user-naam { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+    .user-email { color: var(--muted); font-size: 0.85rem; }
+    .user-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .badge-google { background: #1a2a3a; color: #4285F4; border: 1px solid #4285F430; }
+    .badge-email { background: #1a2a1a; color: var(--green); border: 1px solid #22c55e30; }
+    .badge-date { background: var(--input-bg); color: var(--muted); border: 1px solid var(--border); }
+    .user-uid { font-size: 0.72rem; color: #555; font-family: monospace; }
+
+    .loading { padding: 40px; text-align: center; color: var(--muted); }
+    .empty { padding: 40px; text-align: center; color: var(--muted); }
+
+    @media(max-width: 500px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOCK SCREEN -->
+  <div class="lock-screen" id="lockScreen">
+    <div class="lock-logo">Tech<span>Drop</span>Indian 🔐</div>
+    <div class="lock-card">
+      <h2>Admin Panel</h2>
+      <p>Sirf authorized access — password daalo</p>
+      <input type="password" id="adminPass" placeholder="Admin password..." onkeydown="if(event.key==='Enter') unlock()"/>
+      <button class="btn-unlock" onclick="unlock()">🔓 Enter Admin Panel</button>
+      <div class="lock-error" id="lockError">❌ Galat password! Dobara try karo.</div>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div class="admin-panel" id="adminPanel">
+    <div class="admin-header">
+      <div class="admin-title">⚙️ <span>Admin</span> Panel</div>
+      <button class="btn-lock" onclick="lockPanel()">🔒 Lock</button>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" id="totalUsers">—</div>
+        <div class="stat-label">Total Users</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="googleUsers">—</div>
+        <div class="stat-label">Google Login</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="emailUsers">—</div>
+        <div class="stat-label">Email Login</div>
+      </div>
+    </div>
+
+    <div class="users-card">
+      <div class="users-card-header">
+        <h3>👥 Registered Users</h3>
+        <button class="btn-refresh" onclick="loadUsers()">🔄 Refresh</button>
+      </div>
+      <div id="usersList">
+        <div class="loading">⏳ Users load ho rahe hain...</div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD3miZVPmUVqQnSutWWm5FSaiprXkkn2EE",
+      authDomain: "techdropindian.firebaseapp.com",
+      projectId: "techdropindian",
+      storageBucket: "techdropindian.firebasestorage.app",
+      messagingSenderId: "65489078720",
+      appId: "1:65489078720:web:917e055c11706b253ca025"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const ADMIN_PASS = "Armanpathan24admin";
+
+    window.unlock = () => {
+      const pass = document.getElementById('adminPass').value;
+      if (pass === ADMIN_PASS) {
+        document.getElementById('lockScreen').style.display = 'none';
+        document.getElementById('adminPanel').classList.add('show');
+        loadUsers();
+      } else {
+        document.getElementById('lockError').style.display = 'block';
+        document.getElementById('adminPass').value = '';
+      }
+    };
+
+    window.lockPanel = () => {
+      document.getElementById('lockScreen').style.display = 'flex';
+      document.getElementById('adminPanel').classList.remove('show');
+      document.getElementById('adminPass').value = '';
+    };
+
+    window.loadUsers = async () => {
+      const list = document.getElementById('usersList');
+      list.innerHTML = '<div class="loading">⏳ Users load ho rahe hain...</div>';
+
+      try {
+        const q = query(collection(db, "users"), orderBy("joinDate", "desc"));
+        const snap = await getDocs(q);
+
+        if (snap.empty) {
+          list.innerHTML = '<div class="empty">Abhi koi user nahi hai.</div>';
+          return;
+        }
+
+        let googleCount = 0, emailCount = 0;
+        let html = '';
+
+        snap.forEach(doc => {
+          const d = doc.data();
+          const isGoogle = d.provider === 'google.com';
+          if (isGoogle) googleCount++; else emailCount++;
+
+          const date = d.joinDate?.toDate?.();
+          const dateStr = date ? date.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Unknown';
+
+          html += `
+            <div class="user-row">
+              <div class="user-naam">
+                ${isGoogle ? '🔵' : '📧'} ${d.naam || 'Unknown'}
+              </div>
+              <div class="user-email">${d.email || '—'}</div>
+              <div class="user-meta">
+                <span class="badge ${isGoogle ? 'badge-google' : 'badge-email'}">
+                  ${isGoogle ? 'Google' : 'Email'}
+                </span>
+                <span class="badge badge-date">📅 ${dateStr}</span>
+              </div>
+              <div class="user-uid">UID: ${d.uid || doc.id}</div>
+            </div>
+          `;
+        });
+
+        const total = snap.size;
+        document.getElementById('totalUsers').textContent = total;
+        document.getElementById('googleUsers').textContent = googleCount;
+        document.getElementById('emailUsers').textContent = emailCount;
+        list.innerHTML = html;
+
+      } catch(e) {
+        list.innerHTML = '<div class="empty">⚠️ Data load karne mein error aaya. Firestore rules check karo.</div>';
+      }
+    };
+  </script>
+</body>
+</html>
