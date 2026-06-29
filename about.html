@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us – TechDropIndian</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #0a0a0a; --card: #111; --border: #222; --accent: #f97316; --accent2: #ef4444; --text: #f0f0f0; --muted: #666; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; }
+
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: rgba(10,10,10,0.95); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+    .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    .nav-back { color: var(--muted); text-decoration: none; font-size: 0.88rem; }
+    .nav-back:hover { color: var(--text); }
+
+    .hero { background: radial-gradient(ellipse at top, #1a0800, #0a0a0a); border-bottom: 1px solid var(--border); padding: 50px 24px 40px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 16px; }
+    .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--muted); font-size: 0.95rem; max-width: 500px; margin: 0 auto; }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 40px 20px; }
+
+    .section { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 16px; }
+    .section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--accent); margin-bottom: 12px; }
+    .section p { color: #aaa; font-size: 0.9rem; margin-bottom: 10px; }
+    .section p:last-child { margin-bottom: 0; }
+
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
+    .stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+    .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+    .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .value-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .value-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .value-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+    .value-card p { color: var(--muted); font-size: 0.82rem; }
+
+    .cta-card { background: linear-gradient(135deg, #1a0800, #111); border: 1px solid var(--accent); border-radius: 14px; padding: 28px; text-align: center; margin-top: 8px; }
+    .cta-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
+    .cta-card p { color: var(--muted); font-size: 0.85rem; margin-bottom: 16px; }
+    .btn-primary { display: inline-block; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; padding: 11px 24px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; text-decoration: none; }
+
+    footer { border-top: 1px solid var(--border); padding: 20px; text-align: center; color: var(--muted); font-size: 0.78rem; }
+    footer span { color: var(--accent); }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Tech<span>Drop</span>Indian 🔥</a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">🇮🇳 Made in India</div>
+  <h1>About <span>TechDropIndian</span></h1>
+  <p>India ka apna premium product store — best deals, best products, best prices!</p>
+</div>
+
+<div class="content">
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num">50+</div><div class="stat-label">Products</div></div>
+    <div class="stat-card"><div class="stat-num">4.8★</div><div class="stat-label">Avg Rating</div></div>
+    <div class="stat-card"><div class="stat-num">10K+</div><div class="stat-label">Happy Buyers</div></div>
+  </div>
+
+  <div class="section">
+    <h2>🎯 Hamara Mission</h2>
+    <p>TechDropIndian ka mission hai India ke har ghar tak best quality products pahunchana — best prices pe. Hum carefully har product ko select karte hain taaki aapko sirf best milega.</p>
+    <p>Hum Amazon Associates Program ke through kaam karte hain jisse aapko trusted aur reliable shopping experience milti hai.</p>
+  </div>
+
+  <div class="section">
+    <h2>📖 Hamari Kahani</h2>
+    <p>TechDropIndian 2026 mein start hua ek simple idea ke saath — India mein online shopping easy aur affordable banao. Hum chahte hain ki har Indian customer ko best deals mile bina kisi mushkil ke.</p>
+    <p>Aaj hum 12+ categories mein products offer karte hain — Men, Women, Tech, Gym, Beauty, Kids, aur bahut kuch!</p>
+  </div>
+
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-icon">✅</div>
+      <h3>Trusted Products</h3>
+      <p>Sirf verified Amazon products — koi fake nahi</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">💰</div>
+      <h3>Best Prices</h3>
+      <p>Har product pe best deal guarantee</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🚀</div>
+      <h3>Fast Updates</h3>
+      <p>Roz naye products aur deals</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🔒</div>
+      <h3>Safe Shopping</h3>
+      <p>Amazon ke through 100% secure</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🤝 Amazon Associate</h2>
+    <p>TechDropIndian Amazon Associates Program ka hissa hai. Jab aap hamare links se khareedari karte hain, hume ek chhoti commission milti hai — aapko koi extra charge nahi lagta aur price same rehta hai.</p>
+  </div>
+
+  <div class="cta-card">
+    <h3>🛍️ Shopping Shuru Karein!</h3>
+    <p>Hazaron products mein se apna favourite dhundho</p>
+    <a href="index.html" class="btn-primary">Shop Now →</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 <span>TechDropIndian</span> — All Rights Reserved</p>
+  <p style="margin-top:6px">
+    <a href="index.html">Home</a> ·
+    <a href="privacy.html">Privacy Policy</a> ·
+    <a href="contact.html">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>
+
