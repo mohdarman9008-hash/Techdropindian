@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us – TechDropIndian</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #0a0a0a; --card: #111; --border: #222; --accent: #f97316; --accent2: #ef4444; --text: #f0f0f0; --muted: #666; --input-bg: #1a1a1a; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; }
+
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: rgba(10,10,10,0.95); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+    .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    .nav-back { color: var(--muted); text-decoration: none; font-size: 0.88rem; }
+    .nav-back:hover { color: var(--text); }
+
+    .hero { background: radial-gradient(ellipse at top, #1a0800, #0a0a0a); border-bottom: 1px solid var(--border); padding: 50px 24px 40px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 16px; }
+    .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--muted); font-size: 0.95rem; max-width: 500px; margin: 0 auto; }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 40px 20px; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .contact-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
+    .contact-icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .contact-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
+    .contact-card a { color: var(--accent); text-decoration: none; font-size: 0.82rem; }
+    .contact-card p { color: var(--muted); font-size: 0.8rem; }
+
+    .form-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; margin-bottom: 16px; }
+    .form-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
+    .form-card h2 span { color: var(--accent); }
+
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .field label { font-size: 0.78rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.3px; }
+    .field input, .field textarea, .field select {
+      background: var(--input-bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 11px 14px; color: var(--text);
+      font-size: 0.9rem; font-family: 'Inter', sans-serif; outline: none;
+      transition: border 0.2s;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--accent); }
+    .field textarea { resize: vertical; min-height: 100px; }
+    .field select option { background: #1a1a1a; }
+
+    .btn-submit { width: 100%; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border: none; border-radius: 8px; padding: 13px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; transition: opacity 0.2s; margin-top: 4px; }
+    .btn-submit:hover { opacity: 0.9; }
+
+    .success-msg { display: none; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); border-radius: 8px; padding: 14px; text-align: center; color: #6bff6b; font-size: 0.9rem; margin-top: 12px; }
+
+    .faq-section { margin-top: 8px; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 10px; }
+    .faq-item h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; color: var(--accent); }
+    .faq-item p { color: #aaa; font-size: 0.85rem; }
+
+    footer { border-top: 1px solid var(--border); padding: 20px; text-align: center; color: var(--muted); font-size: 0.78rem; }
+    footer span { color: var(--accent); }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Tech<span>Drop</span>Indian 🔥</a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">💬 Hum Yahan Hain</div>
+  <h1>Contact <span>Us</span></h1>
+  <p>Koi bhi sawaal ho — hum se seedha baat karo!</p>
+</div>
+
+<div class="content">
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">📧</div>
+      <h3>Email</h3>
+      <a href="mailto:mohdarman9008@gmail.com">mohdarman9008@gmail.com</a>
+      <p style="margin-top:4px">24 hours mein reply</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🌐</div>
+      <h3>Website</h3>
+      <a href="https://techdropindian.vercel.app">techdropindian.vercel.app</a>
+      <p style="margin-top:4px">24/7 available</p>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <h2>📩 Message <span>Bhejo</span></h2>
+
+    <div class="field">
+      <label>Aapka Naam</label>
+      <input type="text" id="contactName" placeholder="Apna naam likho"/>
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="contactEmail" placeholder="you@email.com"/>
+    </div>
+    <div class="field">
+      <label>Subject</label>
+      <select id="contactSubject">
+        <option value="">Subject select karo</option>
+        <option>Product ke baare mein</option>
+        <option>Affiliate link problem</option>
+        <option>Account issue</option>
+        <option>Feedback / Suggestion</option>
+        <option>Kuch aur</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Message</label>
+      <textarea id="contactMsg" placeholder="Apna message yahan likho..."></textarea>
+    </div>
+
+    <button class="btn-submit" onclick="sendMessage()">Send Message 🚀</button>
+    <div class="success-msg" id="successMsg">✅ Message mil gaya! Hum 24 hours mein reply karenge.</div>
+  </div>
+
+  <div class="faq-section">
+    <div class="faq-item">
+      <h3>🛍️ Products Amazon se hain?</h3>
+      <p>Haan, saare products Amazon India ke hain. Hum Amazon Associates Program ke through kaam karte hain.</p>
+    </div>
+    <div class="faq-item">
+      <h3>💰 Kya price same rehta hai?</h3>
+      <p>Bilkul! Hamare affiliate links se khareedne pe aapko koi extra charge nahi lagta.</p>
+    </div>
+    <div class="faq-item">
+      <h3>📦 Return/Refund kaise karein?</h3>
+      <p>Return aur refund directly Amazon ke through hota hai — Amazon ka return policy follow karo.</p>
+    </div>
+    <div class="faq-item">
+      <h3>🆕 Naye products kab aate hain?</h3>
+      <p>Hum regularly naye products add karte hain. Newsletter subscribe karo — latest deals sabse pehle milegi!</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 <span>TechDropIndian</span> — All Rights Reserved</p>
+  <p style="margin-top:6px">
+    <a href="index.html">Home</a> ·
+    <a href="about.html">About</a> ·
+    <a href="privacy.html">Privacy Policy</a>
+  </p>
+</footer>
+
+<script>
+function sendMessage() {
+  const name = document.getElementById('contactName').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const subject = document.getElementById('contactSubject').value;
+  const msg = document.getElementById('contactMsg').value.trim();
+
+  if (!name || !email || !subject || !msg) {
+    alert('Saari fields bharo!');
+    return;
+  }
+
+  // Show success message
+  document.getElementById('successMsg').style.display = 'block';
+  document.getElementById('contactName').value = '';
+  document.getElementById('contactEmail').value = '';
+  document.getElementById('contactSubject').value = '';
+  document.getElementById('contactMsg').value = '';
+}
+</script>
+
+</body>
+</html>
+
