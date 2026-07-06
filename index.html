@@ -44,34 +44,56 @@
     .stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--accent); }
     .stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-    /* MAIN LAYOUT */
-    .main-layout { display: flex; max-width: 1000px; margin: 0 auto; gap: 0; }
+    /* PRODUCTS SECTION */
+    .section { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+    .section-header { text-align: center; margin-bottom: 20px; }
+    .section-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
+    .section-header p { color: var(--muted); font-size: 0.85rem; }
 
-    /* SIDEBAR CATEGORIES */
-    .sidebar { width: 140px; min-width: 140px; padding: 20px 12px; border-right: 1px solid var(--border); position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
-    .sidebar::-webkit-scrollbar { width: 4px; }
-    .sidebar::-webkit-scrollbar-track { background: transparent; }
-    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-    .sidebar h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; padding: 0 4px; }
-    .cat-grid { display: flex; flex-direction: column; gap: 4px; }
-    .cat-btn { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 8px; cursor: pointer; font-size: 0.78rem; font-weight: 600; color: var(--muted); background: transparent; border: none; transition: all 0.2s; text-align: left; width: 100%; font-family: 'Inter', sans-serif; }
-    .cat-btn:hover { background: rgba(255,255,255,0.05); color: var(--text); }
-    .cat-btn.active { background: rgba(249,115,22,0.15); color: var(--accent); border: 1px solid rgba(249,115,22,0.2); }
-    .cat-icon { font-size: 1rem; min-width: 20px; }
-
-    /* PRODUCTS AREA */
-    .products-area { flex: 1; padding: 20px 16px; min-width: 0; }
-    .products-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
-    .products-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 800; }
-    .products-count { font-size: 0.78rem; color: var(--muted); }
+    /* CATEGORIES GRID - UPAR WRAP HOTI HUI */
+    .cats-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px; }
+    .cats-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; text-align: center; }
+    .cats-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .cat-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+    }
+    .cat-btn:hover { color: var(--text); border-color: var(--muted2); background: rgba(255,255,255,0.04); }
+    .cat-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .cat-icon { font-size: 0.9rem; }
 
     /* DISCLOSURE */
-    .disclosure { background: rgba(249,115,22,0.05); border: 1px solid rgba(249,115,22,0.15); border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; font-size: 0.75rem; color: #888; }
+    .disclosure { background: rgba(249,115,22,0.05); border: 1px solid rgba(249,115,22,0.15); border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; font-size: 0.75rem; color: #888; text-align: center; }
     .disclosure span { color: var(--accent); font-weight: 600; }
 
     /* PRODUCTS GRID */
+    .products-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .products-header h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 800; }
+    .products-count { font-size: 0.78rem; color: var(--muted); }
+
     .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     @media(min-width: 500px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media(min-width: 700px) { .products-grid { grid-template-columns: repeat(4, 1fr); } }
+
     .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
     .product-card:hover { transform: translateY(-2px); border-color: var(--muted2); }
     .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: var(--card2); }
@@ -106,20 +128,6 @@
     footer span { color: var(--accent); }
     footer a { color: var(--accent); text-decoration: none; }
     .footer-disclosure { background: rgba(249,115,22,0.05); border: 1px solid rgba(249,115,22,0.1); border-radius: 8px; padding: 10px 16px; margin-bottom: 14px; font-size: 0.73rem; color: #777; }
-
-    /* MOBILE */
-    @media(max-width: 500px) {
-      .sidebar { display: none; }
-      .mobile-cats { display: block; }
-      .main-layout { flex-direction: column; }
-    }
-    @media(min-width: 501px) {
-      .mobile-cats { display: none; }
-    }
-    .mobile-cats { padding: 12px 16px; border-bottom: 1px solid var(--border); overflow-x: auto; }
-    .mobile-cats-inner { display: flex; gap: 8px; width: max-content; }
-    .mobile-cat-btn { padding: 6px 14px; border-radius: 16px; cursor: pointer; font-size: 0.78rem; font-weight: 600; color: var(--muted); background: var(--card); border: 1px solid var(--border); white-space: nowrap; font-family: 'Inter', sans-serif; }
-    .mobile-cat-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
   </style>
 </head>
 <body>
@@ -153,32 +161,25 @@
   <div class="stat"><div class="stat-num">10K+</div><div class="stat-label">Buyers</div></div>
 </div>
 
-<!-- MOBILE CATEGORIES -->
-<div class="mobile-cats" id="mobileCats"></div>
+<!-- CATEGORIES GRID UPAR -->
+<div class="cats-section" id="products">
+  <div class="cats-title">🗂️ Browse Categories</div>
+  <div class="cats-grid" id="catsGrid"></div>
+</div>
 
-<!-- MAIN LAYOUT -->
-<div class="main-layout" id="products">
-
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <h3>Categories</h3>
-    <div class="cat-grid" id="catGrid"></div>
+<!-- PRODUCTS -->
+<div class="section">
+  <div class="products-header">
+    <h3 id="currentCatTitle">🛍️ All Products</h3>
+    <span class="products-count" id="productsCount"></span>
   </div>
-
-  <!-- PRODUCTS -->
-  <div class="products-area">
-    <div class="products-header">
-      <h2 id="currentCatTitle">🛒 All Products</h2>
-      <span class="products-count" id="productsCount"></span>
-    </div>
-    <div class="disclosure">
-      <span>⚡ Note:</span> Yeh products Amazon.in pe available hain. Prices change ho sakti hain. "Check Price" click karne pe aap Amazon pe jayenge.
-    </div>
-    <div class="products-grid" id="productsGrid">
-      <div class="loading-state">
-        <div class="loading-spinner"></div>
-        <p>Products load ho rahe hain...</p>
-      </div>
+  <div class="disclosure">
+    <span>⚡ Note:</span> Yeh products Amazon.in pe available hain. Prices change ho sakti hain. "Check Price" click karne pe aap Amazon pe jayenge.
+  </div>
+  <div class="products-grid" id="productsGrid">
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Products load ho rahe hain...</p>
     </div>
   </div>
 </div>
@@ -255,27 +256,13 @@ const CATEGORIES = [
 let allProducts = [];
 let currentFilter = 'all';
 
-// Build sidebar
 function buildCategories() {
-  const catGrid = document.getElementById('catGrid');
-  const mobileCats = document.getElementById('mobileCats');
-  let mobileHTML = '<div class="mobile-cats-inner">';
-
-  CATEGORIES.forEach(cat => {
-    // Sidebar
-    const btn = document.createElement('button');
-    btn.className = 'cat-btn' + (cat.id === 'all' ? ' active' : '');
-    btn.dataset.cat = cat.id;
-    btn.innerHTML = `<span class="cat-icon">${cat.icon}</span>${cat.label}`;
-    btn.onclick = () => filterProducts(cat.id, cat.label, cat.icon);
-    catGrid.appendChild(btn);
-
-    // Mobile
-    mobileHTML += `<button class="mobile-cat-btn${cat.id === 'all' ? ' active' : ''}" data-cat="${cat.id}" onclick="filterProducts('${cat.id}', '${cat.label}', '${cat.icon}')">${cat.icon} ${cat.label}</button>`;
-  });
-
-  mobileHTML += '</div>';
-  mobileCats.innerHTML = mobileHTML;
+  const grid = document.getElementById('catsGrid');
+  grid.innerHTML = CATEGORIES.map(cat => `
+    <button class="cat-btn${cat.id === 'all' ? ' active' : ''}" data-cat="${cat.id}" onclick="filterProducts('${cat.id}', '${cat.label}', '${cat.icon}')">
+      <span class="cat-icon">${cat.icon}</span>${cat.label}
+    </button>
+  `).join('');
 }
 
 function parseCSV(text) {
@@ -330,10 +317,8 @@ function renderProducts(filter) {
     const category = (p.Category || p.category || '').toLowerCase();
     const cat = CATEGORIES.find(c => c.id === category);
     const icon = cat?.icon || '🛍️';
-
     const imgHTML = imageUrl ? `<img class="product-img" src="${imageUrl}" alt="${name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : '';
     const placeholderHTML = `<div class="product-img-placeholder" style="${imageUrl ? 'display:none' : ''}">${icon}</div>`;
-
     return `<div class="product-card">
       ${imgHTML}${placeholderHTML}
       <div class="product-body">
@@ -351,18 +336,11 @@ function renderProducts(filter) {
 
 function filterProducts(cat, label, icon) {
   currentFilter = cat;
-
-  // Update sidebar
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll(`[data-cat="${cat}"]`).forEach(b => b.classList.add('active'));
-
-  // Update title
   document.getElementById('currentCatTitle').textContent = `${icon} ${label}`;
-
   renderProducts(cat);
-
-  // Scroll to products on mobile
-  document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelector('.section').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function subscribe() {
