@@ -3,15 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TechDropIndian – Login / Signup</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <title>Login / Sign Up – TechDropIndian</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0d0d0d; --card: #161616; --border: #2a2a2a;
-      --accent: #ff6b00; --accent2: #ff9a3c; --text: #f0f0f0;
-      --muted: #888; --input-bg: #1e1e1e; --radius: 12px;
-    }
+    :root { --bg: #0d0d0d; --card: #161616; --border: #2a2a2a; --accent: #ff6b00; --accent2: #ff9a3c; --text: #f0f0f0; --muted: #888; --input-bg: #1e1e1e; --radius: 12px; }
     body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
     .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 28px; text-align: center; }
     .logo span { color: var(--accent); }
@@ -44,15 +40,14 @@
     .user-info { background: var(--input-bg); border-radius: 8px; padding: 14px; font-size: 0.85rem; color: var(--muted); }
     .user-info strong { color: var(--text); display: block; margin-bottom: 2px; }
     .db-status { background: #0a1a0a; border: 1px solid #1a5a1a; border-radius: 8px; padding: 12px 14px; font-size: 0.82rem; color: #6bff6b; }
-    .btn-logout { background: transparent; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; padding: 11px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
-    .btn-logout:hover { border-color: #ff4444; color: #ff4444; }
     .btn-home { display: block; text-align: center; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-radius: 8px; padding: 12px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; text-decoration: none; }
+    .btn-logout { background: transparent; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; padding: 11px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; width: 100%; }
+    .btn-logout:hover { border-color: #ff4444; color: #ff4444; }
     .auth-card { display: block; }
     .auth-card.hidden { display: none; }
   </style>
 </head>
 <body>
-
   <div class="logo">Tech<span>Drop</span>Indian 🇮🇳</div>
 
   <!-- AUTH CARD -->
@@ -74,7 +69,7 @@
         <input type="password" id="loginPass" placeholder="••••••••"/>
       </div>
       <button class="btn-primary" onclick="doLoginEmail()">Login</button>
-      <div class="divider">ya phir</div>
+      <div class="divider">or</div>
       <button class="btn-google" onclick="doLoginGoogle()">
         <svg class="google-icon" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -82,7 +77,7 @@
           <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
           <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
         </svg>
-        Google se Login karo
+        Continue with Google
       </button>
     </div>
 
@@ -90,8 +85,8 @@
     <div class="form hidden" id="signupForm">
       <div id="signupMsg" class="msg"></div>
       <div class="field">
-        <label>Naam</label>
-        <input type="text" id="signupName" placeholder="Apna naam likho"/>
+        <label>Full Name</label>
+        <input type="text" id="signupName" placeholder="Enter your name"/>
       </div>
       <div class="field">
         <label>Email</label>
@@ -101,8 +96,8 @@
         <label>Password (min 6 characters)</label>
         <input type="password" id="signupPass" placeholder="••••••••"/>
       </div>
-      <button class="btn-primary" onclick="doSignupEmail()">Account Banao</button>
-      <div class="divider">ya phir</div>
+      <button class="btn-primary" onclick="doSignupEmail()">Create Account</button>
+      <div class="divider">or</div>
       <button class="btn-google" onclick="doLoginGoogle()">
         <svg class="google-icon" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -110,7 +105,7 @@
           <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
           <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
         </svg>
-        Google se Signup karo
+        Sign up with Google
       </button>
     </div>
   </div>
@@ -121,15 +116,15 @@
       <div class="welcome-banner">
         <div class="emoji">🎉</div>
         <h2 id="welcomeName">Welcome!</h2>
-        <p>TechDropIndian pe aapka swagat hai</p>
+        <p>You are now logged in to TechDropIndian</p>
       </div>
       <div class="user-info">
         <strong id="userEmail">—</strong>
         <span id="userProvider">—</span>
       </div>
-      <div class="db-status" id="dbStatus">⏳ Database se data load ho raha hai...</div>
-      <a href="index.html" class="btn-home">🏠 Main Site pe Jao</a>
-      <button class="btn-logout" onclick="doLogout()">Logout kar do</button>
+      <div class="db-status" id="dbStatus">⏳ Loading your data...</div>
+      <a href="index.html" class="btn-home">🏠 Go to Main Site</a>
+      <button class="btn-logout" onclick="doLogout()">Logout</button>
     </div>
   </div>
 
@@ -144,8 +139,7 @@
       projectId: "techdropindian",
       storageBucket: "techdropindian.firebasestorage.app",
       messagingSenderId: "65489078720",
-      appId: "1:65489078720:web:917e055c11706b253ca025",
-      measurementId: "G-S1EXG90071"
+      appId: "1:65489078720:web:917e055c11706b253ca025"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -153,46 +147,32 @@
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
 
-    // Save user to Firestore
     async function saveUserToDB(user, extraName) {
       try {
         const userRef = doc(db, "users", user.uid);
         const snap = await getDoc(userRef);
         if (!snap.exists()) {
-          await setDoc(userRef, {
-            naam: extraName || user.displayName || "Unknown",
-            email: user.email,
-            uid: user.uid,
-            provider: user.providerData[0]?.providerId || "email",
-            joinDate: serverTimestamp(),
-            wishlist: []
-          });
+          await setDoc(userRef, { naam: extraName || user.displayName || "Unknown", email: user.email, uid: user.uid, provider: user.providerData[0]?.providerId || "email", joinDate: serverTimestamp(), wishlist: [] });
         }
-        // Load user data
         const freshSnap = await getDoc(userRef);
         const data = freshSnap.data();
-        document.getElementById('dbStatus').textContent = `✅ Database mein saved! Naam: ${data.naam} | Join: ${data.joinDate ? 'Aaj' : '—'}`;
+        document.getElementById('dbStatus').textContent = `✅ Account synced! Welcome, ${data.naam}`;
       } catch(e) {
-        document.getElementById('dbStatus').textContent = "⚠️ Database save mein error aaya";
+        document.getElementById('dbStatus').textContent = "⚠️ Error syncing account data";
       }
     }
 
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        showDashboard(user);
-        saveUserToDB(user, null);
-      } else {
-        showAuth();
-      }
+      if (user) { showDashboard(user); saveUserToDB(user, null); }
+      else { showAuth(); }
     });
 
     function showDashboard(user) {
       document.getElementById('authCard').classList.add('hidden');
       document.getElementById('dashboard').classList.add('show');
-      document.getElementById('welcomeName').textContent = user.displayName || 'Dost!';
+      document.getElementById('welcomeName').textContent = user.displayName || 'Welcome!';
       document.getElementById('userEmail').textContent = user.email;
-      document.getElementById('userProvider').textContent =
-        user.providerData[0]?.providerId === 'google.com' ? '🔵 Google se login kiya' : '📧 Email se login kiya';
+      document.getElementById('userProvider').textContent = user.providerData[0]?.providerId === 'google.com' ? '🔵 Signed in with Google' : '📧 Signed in with Email';
     }
 
     function showAuth() {
@@ -202,8 +182,7 @@
 
     function showMsg(id, text, type) {
       const el = document.getElementById(id);
-      el.textContent = text;
-      el.className = 'msg ' + type;
+      el.textContent = text; el.className = 'msg ' + type;
     }
 
     window.switchTab = (tab) => {
@@ -216,12 +195,11 @@
     window.doLoginEmail = async () => {
       const email = document.getElementById('loginEmail').value.trim();
       const pass = document.getElementById('loginPass').value;
-      if (!email || !pass) return showMsg('loginMsg', 'Email aur password dono bharo!', 'error');
-      try {
-        await signInWithEmailAndPassword(auth, email, pass);
-      } catch (e) {
-        const msgs = { 'auth/user-not-found': 'Yeh email registered nahi hai!', 'auth/wrong-password': 'Password galat hai!', 'auth/invalid-credential': 'Email ya password galat hai!' };
-        showMsg('loginMsg', msgs[e.code] || 'Kuch gadbad hui!', 'error');
+      if (!email || !pass) return showMsg('loginMsg', 'Please enter your email and password!', 'error');
+      try { await signInWithEmailAndPassword(auth, email, pass); }
+      catch (e) {
+        const msgs = { 'auth/invalid-credential': 'Incorrect email or password!', 'auth/user-not-found': 'This email is not registered!' };
+        showMsg('loginMsg', msgs[e.code] || 'Something went wrong. Please try again!', 'error');
       }
     };
 
@@ -229,25 +207,22 @@
       const name = document.getElementById('signupName').value.trim();
       const email = document.getElementById('signupEmail').value.trim();
       const pass = document.getElementById('signupPass').value;
-      if (!name || !email || !pass) return showMsg('signupMsg', 'Saari fields bharo!', 'error');
-      if (pass.length < 6) return showMsg('signupMsg', 'Password 6+ characters ka hona chahiye!', 'error');
+      if (!name || !email || !pass) return showMsg('signupMsg', 'Please fill in all fields!', 'error');
+      if (pass.length < 6) return showMsg('signupMsg', 'Password must be at least 6 characters!', 'error');
       try {
         const cred = await createUserWithEmailAndPassword(auth, email, pass);
         await updateProfile(cred.user, { displayName: name });
         await saveUserToDB(cred.user, name);
-        showMsg('signupMsg', 'Account ban gaya! 🎉', 'success');
+        showMsg('signupMsg', 'Account created successfully! 🎉', 'success');
       } catch (e) {
-        const msgs = { 'auth/email-already-in-use': 'Yeh email already registered hai!', 'auth/weak-password': 'Password thoda strong rakho!' };
-        showMsg('signupMsg', msgs[e.code] || 'Kuch gadbad hui!', 'error');
+        const msgs = { 'auth/email-already-in-use': 'This email is already registered!' };
+        showMsg('signupMsg', msgs[e.code] || 'Something went wrong!', 'error');
       }
     };
 
     window.doLoginGoogle = async () => {
-      try {
-        await signInWithPopup(auth, provider);
-      } catch (e) {
-        showMsg('loginMsg', 'Google login mein problem aayi!', 'error');
-      }
+      try { await signInWithPopup(auth, provider); }
+      catch (e) { showMsg('loginMsg', 'Google sign-in failed. Please try again!', 'error'); }
     };
 
     window.doLogout = async () => { await signOut(auth); };
