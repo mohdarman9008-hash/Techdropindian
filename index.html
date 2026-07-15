@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TechDropIndian - Premium Fashion & Digital Products</title>
+  <title>TechDropIndian - Premium Fashion & Tech Products India</title>
+  <meta name="description" content="India's best Amazon affiliate store. Find top fashion, tech, home, and lifestyle products at the best prices. Shop now on TechDropIndian."/>
+  <meta name="keywords" content="amazon india, best products india, fashion, tech, home products, affiliate store india"/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -13,6 +15,71 @@
       --muted: #666; --muted2: #444; --radius: 14px;
     }
     body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+    /* LOGIN POPUP OVERLAY */
+    .login-overlay {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .login-overlay.hidden { display: none; }
+
+    .login-popup {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 32px 28px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      animation: slideUp 0.4s cubic-bezier(0.16,1,0.3,1);
+      position: relative;
+    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+
+    .popup-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+    .popup-logo span { color: var(--accent); }
+    .popup-tagline { color: var(--muted); font-size: 0.82rem; margin-bottom: 24px; }
+
+    .popup-emoji { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+    .popup-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
+    .popup-desc { color: var(--muted); font-size: 0.82rem; margin-bottom: 24px; line-height: 1.5; }
+
+    .popup-btn-primary {
+      display: block; width: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; border: none; border-radius: 10px;
+      padding: 13px; font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 0.95rem; cursor: pointer;
+      text-decoration: none; margin-bottom: 10px;
+      transition: opacity 0.2s;
+    }
+    .popup-btn-primary:hover { opacity: 0.9; }
+
+    .popup-btn-secondary {
+      display: block; width: 100%;
+      background: transparent; color: var(--muted);
+      border: 1px solid #2a2a2a; border-radius: 10px;
+      padding: 12px; font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600; font-size: 0.88rem; cursor: pointer;
+      transition: all 0.2s; margin-bottom: 16px;
+    }
+    .popup-btn-secondary:hover { border-color: #444; color: var(--text); }
+
+    .popup-skip {
+      color: #555; font-size: 0.75rem; cursor: pointer;
+      text-decoration: underline; background: none; border: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .popup-skip:hover { color: var(--muted); }
+
+    .popup-benefits { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+    .benefit { background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.15); border-radius: 8px; padding: 8px 12px; font-size: 0.72rem; color: #ccc; }
+    .benefit span { color: var(--accent); font-weight: 700; display: block; font-size: 0.82rem; }
 
     /* NAV */
     nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: rgba(10,10,10,0.95); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
@@ -44,56 +111,26 @@
     .stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--accent); }
     .stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-    /* PRODUCTS SECTION */
-    .section { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
-    .section-header { text-align: center; margin-bottom: 20px; }
-    .section-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
-    .section-header p { color: var(--muted); font-size: 0.85rem; }
-
-    /* CATEGORIES GRID - UPAR WRAP HOTI HUI */
+    /* CATEGORIES */
     .cats-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px; }
     .cats-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; text-align: center; }
-    .cats-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .cat-btn {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 7px 14px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--muted);
-      background: var(--bg);
-      border: 1px solid var(--border);
-      transition: all 0.2s;
-      font-family: 'Inter', sans-serif;
-      white-space: nowrap;
-    }
-    .cat-btn:hover { color: var(--text); border-color: var(--muted2); background: rgba(255,255,255,0.04); }
+    .cats-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 900px; margin: 0 auto; }
+    .cat-btn { display: flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: 600; color: var(--muted); background: var(--bg); border: 1px solid var(--border); transition: all 0.2s; font-family: 'Inter', sans-serif; white-space: nowrap; }
+    .cat-btn:hover { color: var(--text); border-color: var(--muted2); }
     .cat-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .cat-icon { font-size: 0.9rem; }
 
     /* DISCLOSURE */
     .disclosure { background: rgba(249,115,22,0.05); border: 1px solid rgba(249,115,22,0.15); border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; font-size: 0.75rem; color: #888; text-align: center; }
     .disclosure span { color: var(--accent); font-weight: 600; }
 
-    /* PRODUCTS GRID */
+    /* PRODUCTS */
+    .section { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
     .products-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
     .products-header h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 800; }
     .products-count { font-size: 0.78rem; color: var(--muted); }
-
     .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     @media(min-width: 500px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
     @media(min-width: 700px) { .products-grid { grid-template-columns: repeat(4, 1fr); } }
-
     .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
     .product-card:hover { transform: translateY(-2px); border-color: var(--muted2); }
     .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: var(--card2); }
@@ -132,6 +169,29 @@
 </head>
 <body>
 
+<!-- LOGIN POPUP -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-popup">
+    <div class="popup-logo">Tech<span>Drop</span>Indian 🔥</div>
+    <div class="popup-tagline">India's Premium Product Store</div>
+
+    <span class="popup-emoji">👋</span>
+    <div class="popup-title">Welcome! Join for Free</div>
+    <div class="popup-desc">Create a free account to save your wishlist, get exclusive deals, and track your favourite products!</div>
+
+    <div class="popup-benefits">
+      <div class="benefit"><span>❤️</span>Save Wishlist</div>
+      <div class="benefit"><span>🔔</span>Get Deals</div>
+      <div class="benefit"><span>⚡</span>Free Forever</div>
+    </div>
+
+    <a href="auth.html" class="popup-btn-primary">🚀 Create Free Account</a>
+    <a href="auth.html" class="popup-btn-secondary">🔐 Already have account? Login</a>
+    <button class="popup-skip" onclick="closePopup()">Continue browsing without account →</button>
+  </div>
+</div>
+
+<!-- NAV -->
 <nav>
   <div class="logo">Tech<span>Drop</span>Indian 🔥</div>
   <div class="nav-links">
@@ -142,13 +202,13 @@
 </nav>
 
 <div class="affiliate-banner">
-  <span>📢 Affiliate Disclosure:</span> TechDropIndian Amazon Associates Program ka part hai. Hamare links se khareedne pe hume commission milti hai — aapko koi extra charge nahi.
+  <span>📢 Affiliate Disclosure:</span> TechDropIndian is part of the Amazon Associates Program. We earn a commission when you buy through our links — at no extra cost to you.
 </div>
 
 <div class="hero">
   <div class="hero-badge">🇮🇳 India's Premium Product Store</div>
   <h1>Find The Best <span>Fashion & Tech</span> Products</h1>
-  <p>Handpicked premium products with the best deals — Amazon affiliate, all in one place.</p>
+  <p>Handpicked premium products with the best deals — trusted Amazon affiliate store, all in one place.</p>
   <div class="hero-btns">
     <a href="#products" class="btn-primary">🛍️ Shop Now</a>
     <a href="auth.html" class="btn-secondary">👤 My Account</a>
@@ -158,10 +218,10 @@
 <div class="stats">
   <div class="stat"><div class="stat-num" id="statProducts">0</div><div class="stat-label">Products</div></div>
   <div class="stat"><div class="stat-num">4.8★</div><div class="stat-label">Rating</div></div>
-  <div class="stat"><div class="stat-num">10K+</div><div class="stat-label">Buyers</div></div>
+  <div class="stat"><div class="stat-num">10K+</div><div class="stat-label">Happy Buyers</div></div>
 </div>
 
-<!-- CATEGORIES GRID UPAR -->
+<!-- CATEGORIES -->
 <div class="cats-section" id="products">
   <div class="cats-title">🗂️ Browse Categories</div>
   <div class="cats-grid" id="catsGrid"></div>
@@ -174,18 +234,18 @@
     <span class="products-count" id="productsCount"></span>
   </div>
   <div class="disclosure">
-    <span>⚡ Note:</span> Yeh products Amazon.in pe available hain. Prices change ho sakti hain. "Check Price" click karne pe aap Amazon pe jayenge.
+    <span>⚡ Note:</span> All products are available on Amazon.in. Prices may change. Clicking "Check Price" will take you to Amazon.
   </div>
   <div class="products-grid" id="productsGrid">
     <div class="loading-state">
       <div class="loading-spinner"></div>
-      <p>Products load ho rahe hain...</p>
+      <p>Loading products...</p>
     </div>
   </div>
 </div>
 
 <div class="newsletter" id="newsletter">
-  <h2>🔔 Get Latest Deals</h2>
+  <h2>🔔 Get the Latest Deals</h2>
   <p>Subscribe for exclusive deals, new arrivals & discount codes</p>
   <div class="newsletter-form">
     <input type="email" placeholder="Enter your email..." id="email-input"/>
@@ -256,11 +316,28 @@ const CATEGORIES = [
 let allProducts = [];
 let currentFilter = 'all';
 
+// POPUP LOGIC
+function closePopup() {
+  document.getElementById('loginOverlay').classList.add('hidden');
+  sessionStorage.setItem('popupShown', 'true');
+}
+
+// Show popup only once per session
+window.addEventListener('load', () => {
+  if (!sessionStorage.getItem('popupShown')) {
+    setTimeout(() => {
+      document.getElementById('loginOverlay').classList.remove('hidden');
+    }, 800);
+  } else {
+    document.getElementById('loginOverlay').classList.add('hidden');
+  }
+});
+
 function buildCategories() {
   const grid = document.getElementById('catsGrid');
   grid.innerHTML = CATEGORIES.map(cat => `
     <button class="cat-btn${cat.id === 'all' ? ' active' : ''}" data-cat="${cat.id}" onclick="filterProducts('${cat.id}', '${cat.label}', '${cat.icon}')">
-      <span class="cat-icon">${cat.icon}</span>${cat.label}
+      <span>${cat.icon}</span>${cat.label}
     </button>
   `).join('');
 }
@@ -292,7 +369,7 @@ async function loadProducts() {
     document.getElementById('statProducts').textContent = allProducts.length + '+';
     renderProducts('all');
   } catch(e) {
-    document.getElementById('productsGrid').innerHTML = `<div class="empty-state"><div style="font-size:2rem">⚠️</div><p>Products load nahi ho sake!</p></div>`;
+    document.getElementById('productsGrid').innerHTML = `<div class="empty-state"><div style="font-size:2rem">⚠️</div><p>Unable to load products. Please check your internet connection.</p></div>`;
   }
 }
 
@@ -306,7 +383,7 @@ function renderProducts(filter) {
 
   if (filtered.length === 0) {
     const cat = CATEGORIES.find(c => c.id === filter);
-    grid.innerHTML = `<div class="empty-state"><div style="font-size:2rem">${cat?.icon || '🛍️'}</div><p>Is category mein abhi koi product nahi hai.</p><p style="font-size:0.78rem;margin-top:4px">Jaldi aayenge!</p></div>`;
+    grid.innerHTML = `<div class="empty-state"><div style="font-size:2rem">${cat?.icon || '🛍️'}</div><p>No products in this category yet.</p><p style="font-size:0.78rem;margin-top:4px">Coming soon!</p></div>`;
     return;
   }
 
@@ -327,7 +404,7 @@ function renderProducts(filter) {
           ${category ? `<span class="badge badge-cat">${icon} ${category}</span>` : ''}
         </div>
         <div class="product-name">${name}</div>
-        <div class="price-note">*Price on Amazon may vary</div>
+        <div class="price-note">*Price may vary on Amazon</div>
         <a href="${affiliateLink}" target="_blank" class="buy-btn">Check Price on Amazon →</a>
       </div>
     </div>`;
@@ -346,10 +423,10 @@ function filterProducts(cat, label, icon) {
 function subscribe() {
   const email = document.getElementById('email-input').value;
   if (email) {
-    alert('✅ Subscribed! You will get the best deals first!');
+    alert('✅ Subscribed! You will receive the best deals first!');
     document.getElementById('email-input').value = '';
   } else {
-    alert('Please enter your email!');
+    alert('Please enter your email address!');
   }
 }
 
