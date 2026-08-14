@@ -148,6 +148,68 @@
     footer span { color: var(--accent); }
     footer a { color: var(--accent); text-decoration: none; }
     .footer-disclosure { background: rgba(249,115,22,0.05); border: 1px solid rgba(249,115,22,0.1); border-radius: 8px; padding: 10px 16px; margin-bottom: 14px; font-size: 0.73rem; color: #777; }
+
+    /* HAMBURGER BUTTON */
+    .hamburger-btn {
+      background: none; border: none; color: var(--text);
+      font-size: 1.4rem; cursor: pointer; padding: 4px 8px;
+      display: flex; align-items: center; order: -1;
+    }
+
+    /* SIDE DRAWER */
+    .drawer-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(3px); z-index: 998;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+    }
+    .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .side-drawer {
+      position: fixed; top: 0; left: 0; height: 100%; width: 78%; max-width: 300px;
+      background: #111; border-right: 1px solid var(--border);
+      z-index: 999; transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+      overflow-y: auto; display: flex; flex-direction: column;
+    }
+    .side-drawer.open { transform: translateX(0); }
+
+    .drawer-close {
+      position: absolute; top: 14px; right: 14px;
+      background: none; border: none; color: var(--muted);
+      font-size: 1.3rem; cursor: pointer;
+    }
+
+    .drawer-account {
+      padding: 28px 20px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .drawer-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-family: 'Space Grotesk', sans-serif; color: #fff;
+      font-size: 1.1rem; flex-shrink: 0; overflow: hidden;
+    }
+    .drawer-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .drawer-account-info { min-width: 0; }
+    .drawer-account-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .drawer-account-email { font-size: 0.72rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .drawer-login-link {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+      color: var(--text); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.92rem;
+    }
+
+    .drawer-section-label {
+      padding: 16px 20px 6px; font-size: 0.7rem; font-weight: 700;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .drawer-links { display: flex; flex-direction: column; padding: 0 8px 20px; }
+    .drawer-links a {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--text); text-decoration: none; font-size: 0.9rem;
+      padding: 11px 12px; border-radius: 8px; transition: background 0.15s;
+    }
+    .drawer-links a:hover, .drawer-links a:active { background: rgba(255,255,255,0.05); }
   </style>
 </head>
 <body>
@@ -181,6 +243,7 @@
 </div>
 
 <nav>
+  <button class="hamburger-btn" id="hamburgerBtn" onclick="openDrawer()" aria-label="Menu">☰</button>
   <div class="logo">Tech<span>Drop</span>Indian 🔥</div>
   <div class="nav-links">
     <a href="#products">Products</a>
@@ -188,6 +251,35 @@
     <a href="auth.html" class="nav-login-btn" id="navLoginBtn">🔐 Login</a>
   </div>
 </nav>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="side-drawer" id="sideDrawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Close">✕</button>
+  <div class="drawer-account" id="drawerAccount">
+    <a href="auth.html" class="drawer-login-link">🔐 Login / Sign Up</a>
+  </div>
+
+  <div class="drawer-section-label">Menu</div>
+  <div class="drawer-links">
+    <a href="index.html" onclick="closeDrawer()">🏠 Home</a>
+    <a href="#products" onclick="closeDrawer()">🛍️ Products</a>
+    <a href="#newsletter" onclick="closeDrawer()">🔔 Deals</a>
+  </div>
+
+  <div class="drawer-section-label">Company</div>
+  <div class="drawer-links">
+    <a href="about.html">ℹ️ About Us</a>
+    <a href="contact.html">📩 Contact</a>
+    <a href="auth.html">🔐 Login</a>
+    <a href="admin.html">🛠️ Admin</a>
+  </div>
+
+  <div class="drawer-section-label">Legal & Policy</div>
+  <div class="drawer-links">
+    <a href="privacy.html">📜 Privacy Policy</a>
+    <a href="terms.html">📄 Terms & Conditions</a>
+  </div>
+</div>
 
 <div class="affiliate-banner">
   <span>📢 Affiliate Disclosure:</span> TechDropIndian is part of the Amazon Associates Program. We earn a commission when you buy through our links — at no extra cost to you.
@@ -282,18 +374,40 @@ const provider = new GoogleAuthProvider();
 
 // Check login state
 onAuthStateChanged(auth, (user) => {
+  const drawerAccount = document.getElementById('drawerAccount');
   if (user) {
     // User logged in — hide popup
     document.getElementById('loginOverlay').classList.add('hidden');
     // Update nav button
     document.getElementById('navLoginBtn').textContent = `👤 ${user.displayName?.split(' ')[0] || 'Account'}`;
+    // Update drawer account section
+    const initial = (user.displayName || user.email || '?').charAt(0).toUpperCase();
+    const avatarHTML = user.photoURL
+      ? `<img src="${user.photoURL}" alt="avatar"/>`
+      : initial;
+    drawerAccount.innerHTML = `
+      <div class="drawer-avatar">${avatarHTML}</div>
+      <div class="drawer-account-info">
+        <div class="drawer-account-name">${user.displayName || 'Account'}</div>
+        <div class="drawer-account-email">${user.email || ''}</div>
+      </div>`;
     // Save to DB
     saveUserToDB(user);
   } else {
     // Not logged in — show popup
     document.getElementById('loginOverlay').classList.remove('hidden');
+    drawerAccount.innerHTML = `<a href="auth.html" class="drawer-login-link">🔐 Login / Sign Up</a>`;
   }
 });
+
+window.openDrawer = () => {
+  document.getElementById('sideDrawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+};
+window.closeDrawer = () => {
+  document.getElementById('sideDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+};
 
 async function saveUserToDB(user) {
   try {
