@@ -133,7 +133,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -150,6 +150,15 @@
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
 
+    getRedirectResult(auth).catch((e) => {
+      showMsgSafe('Google sign-in failed. Please try again!');
+    });
+
+    function showMsgSafe(text) {
+      const el = document.getElementById('loginMsg');
+      if (el) { el.textContent = text; el.className = 'msg error'; }
+    }
+
     async function saveUserToDB(user, extraName) {
       try {
         const userRef = doc(db, "users", user.uid);
@@ -157,16 +166,14 @@
         if (!snap.exists()) {
           await setDoc(userRef, { naam: extraName || user.displayName || "Unknown", email: user.email, uid: user.uid, provider: user.providerData[0]?.providerId || "email", joinDate: serverTimestamp(), wishlist: [] });
         }
-        const freshSnap = await getDoc(userRef);
-        const data = freshSnap.data();
-        document.getElementById('dbStatus').textContent = `✅ Account synced! Welcome, ${data.naam}`;
-      } catch(e) {
-        document.getElementById('dbStatus').textContent = "⚠️ Error syncing account data";
-      }
+      } catch(e) { /* ignore */ }
     }
 
     onAuthStateChanged(auth, (user) => {
-      if (user) { showDashboard(user); saveUserToDB(user, null); }
+      if (user) {
+        saveUserToDB(user, null);
+        window.location.href = "index.html";
+      }
       else { showAuth(); }
     });
 
@@ -201,7 +208,6 @@
       if (!email || !pass) return showMsg('loginMsg', 'Please enter your email and password!', 'error');
       try {
         await signInWithEmailAndPassword(auth, email, pass);
-        window.location.href = "index.html";
       }
       catch (e) {
         const msgs = { 'auth/invalid-credential': 'Incorrect email or password!', 'auth/user-not-found': 'This email is not registered!' };
@@ -219,8 +225,6 @@
         const cred = await createUserWithEmailAndPassword(auth, email, pass);
         await updateProfile(cred.user, { displayName: name });
         await saveUserToDB(cred.user, name);
-        showMsg('signupMsg', 'Account created successfully! 🎉', 'success');
-        setTimeout(() => { window.location.href = "index.html"; }, 1200);
       } catch (e) {
         const msgs = { 'auth/email-already-in-use': 'This email is already registered!' };
         showMsg('signupMsg', msgs[e.code] || 'Something went wrong!', 'error');
@@ -229,8 +233,7 @@
 
     window.doLoginGoogle = async () => {
       try {
-        await signInWithPopup(auth, provider);
-        window.location.href = "index.html";
+        await signInWithRedirect(auth, provider);
       }
       catch (e) { showMsg('loginMsg', 'Google sign-in failed. Please try again!', 'error'); }
     };
