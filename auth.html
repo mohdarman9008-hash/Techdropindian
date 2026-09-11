@@ -199,7 +199,10 @@
       const email = document.getElementById('loginEmail').value.trim();
       const pass = document.getElementById('loginPass').value;
       if (!email || !pass) return showMsg('loginMsg', 'Please enter your email and password!', 'error');
-      try { await signInWithEmailAndPassword(auth, email, pass); }
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+        window.location.href = "index.html";
+      }
       catch (e) {
         const msgs = { 'auth/invalid-credential': 'Incorrect email or password!', 'auth/user-not-found': 'This email is not registered!' };
         showMsg('loginMsg', msgs[e.code] || 'Something went wrong. Please try again!', 'error');
@@ -217,6 +220,7 @@
         await updateProfile(cred.user, { displayName: name });
         await saveUserToDB(cred.user, name);
         showMsg('signupMsg', 'Account created successfully! 🎉', 'success');
+        setTimeout(() => { window.location.href = "index.html"; }, 1200);
       } catch (e) {
         const msgs = { 'auth/email-already-in-use': 'This email is already registered!' };
         showMsg('signupMsg', msgs[e.code] || 'Something went wrong!', 'error');
@@ -224,7 +228,10 @@
     };
 
     window.doLoginGoogle = async () => {
-      try { await signInWithPopup(auth, provider); }
+      try {
+        await signInWithPopup(auth, provider);
+        window.location.href = "index.html";
+      }
       catch (e) { showMsg('loginMsg', 'Google sign-in failed. Please try again!', 'error'); }
     };
 
