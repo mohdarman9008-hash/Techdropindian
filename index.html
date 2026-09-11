@@ -198,12 +198,6 @@
     .drawer-account-info { min-width: 0; }
     .drawer-account-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .drawer-account-email { font-size: 0.72rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .drawer-logout-btn {
-      background: none; border: 1px solid var(--border); color: var(--muted);
-      width: 34px; height: 34px; border-radius: 50%; font-size: 0.95rem;
-      cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-    }
-    .drawer-logout-btn:hover { border-color: var(--accent); color: var(--accent); }
     .drawer-login-link {
       display: flex; align-items: center; gap: 10px; text-decoration: none;
       color: var(--text); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.92rem;
@@ -281,6 +275,9 @@
   <button class="drawer-close" onclick="closeDrawer()" aria-label="Close">✕</button>
   <div class="drawer-account" id="drawerAccount">
     <a href="auth.html" class="drawer-login-link">🔐 Login / Sign Up</a>
+  </div>
+  <div class="drawer-links" id="drawerLogoutRow" style="display:none;padding:0 12px 12px;">
+    <a href="#" onclick="doLogout(); return false;" style="color:#ef4444;">🚪 Logout</a>
   </div>
 
   <div class="drawer-section-label">Menu</div>
@@ -450,14 +447,15 @@ onAuthStateChanged(auth, (user) => {
       <div class="drawer-account-info">
         <div class="drawer-account-name">${user.displayName || 'Account'}</div>
         <div class="drawer-account-email">${user.email || ''}</div>
-      </div>
-      <button class="drawer-logout-btn" onclick="doLogout()" aria-label="Logout">🚪</button>`;
+      </div>`;
+    document.getElementById('drawerLogoutRow').style.display = 'flex';
     // Save to DB
     saveUserToDB(user);
   } else {
     // Not logged in — show popup
     document.getElementById('loginOverlay').classList.remove('hidden');
     drawerAccount.innerHTML = `<a href="auth.html" class="drawer-login-link">🔐 Login / Sign Up</a>`;
+    document.getElementById('drawerLogoutRow').style.display = 'none';
   }
 });
 
