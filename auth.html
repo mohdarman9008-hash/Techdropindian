@@ -133,7 +133,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -149,15 +149,6 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
-
-    getRedirectResult(auth).catch((e) => {
-      showMsgSafe('Google sign-in failed. Please try again!');
-    });
-
-    function showMsgSafe(text) {
-      const el = document.getElementById('loginMsg');
-      if (el) { el.textContent = text; el.className = 'msg error'; }
-    }
 
     async function saveUserToDB(user, extraName) {
       try {
@@ -233,7 +224,7 @@
 
     window.doLoginGoogle = async () => {
       try {
-        await signInWithRedirect(auth, provider);
+        await signInWithPopup(auth, provider);
       }
       catch (e) { showMsg('loginMsg', 'Google sign-in failed. Please try again!', 'error'); }
     };
