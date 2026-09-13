@@ -71,7 +71,19 @@
     .popup-terms a { color: #666; }
 
     /* NAV */
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: rgba(10,10,10,0.95); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: rgba(10,10,10,0.95); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); transition: box-shadow 0.3s, padding 0.3s; }
+    nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.4); padding: 10px 24px; }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes floatBadge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    @keyframes glowPulse { 0%,100% { text-shadow: 0 0 12px rgba(249,115,22,0.3); } 50% { text-shadow: 0 0 24px rgba(249,115,22,0.7); } }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+    @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .fade-in-up { animation: fadeInUp 0.7s ease forwards; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
     .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; }
     .logo span { color: var(--accent); }
     .nav-links { display: flex; gap: 20px; align-items: center; }
@@ -84,18 +96,23 @@
     .affiliate-banner span { color: var(--accent); font-weight: 600; }
 
     /* HERO */
-    .hero { padding: 50px 24px 36px; text-align: center; background: radial-gradient(ellipse at top, #1a0800 0%, #0a0a0a 70%); border-bottom: 1px solid var(--border); }
-    .hero-badge { display: inline-block; background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 16px; }
-    .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.6rem, 5vw, 2.6rem); font-weight: 800; line-height: 1.15; margin-bottom: 12px; letter-spacing: -1px; }
-    .hero h1 span { color: var(--accent); }
-    .hero p { color: var(--muted); font-size: 0.92rem; max-width: 460px; margin: 0 auto 24px; line-height: 1.6; }
-    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.92rem; cursor: pointer; text-decoration: none; display: inline-block; }
-    .btn-secondary { background: rgba(255,255,255,0.05); color: var(--text); border: 1px solid var(--border); padding: 12px 24px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.92rem; cursor: pointer; text-decoration: none; display: inline-block; }
+    .hero { padding: 50px 24px 36px; text-align: center; background: radial-gradient(ellipse at top, #1a0800 0%, #0a0a0a 70%); border-bottom: 1px solid var(--border); overflow: hidden; }
+    .hero-badge { display: inline-block; background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 16px; opacity: 0; animation: fadeInUp 0.6s ease 0.05s forwards, floatBadge 3s ease-in-out 0.8s infinite; }
+    .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.6rem, 5vw, 2.6rem); font-weight: 800; line-height: 1.15; margin-bottom: 12px; letter-spacing: -1px; opacity: 0; animation: fadeInUp 0.6s ease 0.18s forwards; }
+    .hero h1 span { color: var(--accent); animation: glowPulse 2.5s ease-in-out 1s infinite; }
+    .hero p { color: var(--muted); font-size: 0.92rem; max-width: 460px; margin: 0 auto 24px; line-height: 1.6; opacity: 0; animation: fadeInUp 0.6s ease 0.3s forwards; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeInUp 0.6s ease 0.42s forwards; }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.92rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .btn-primary:active { transform: scale(0.96); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(249,115,22,0.35); }
+    .btn-secondary { background: rgba(255,255,255,0.05); color: var(--text); border: 1px solid var(--border); padding: 12px 24px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.92rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.25s ease, border-color 0.25s ease; }
+    .btn-secondary:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .btn-secondary:active, .btn-primary:active { transform: scale(0.96); }
 
     /* STATS */
     .stats { display: flex; justify-content: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--card); }
-    .stat { flex: 1; padding: 16px; text-align: center; border-right: 1px solid var(--border); max-width: 160px; }
+    .stat { flex: 1; padding: 16px; text-align: center; border-right: 1px solid var(--border); max-width: 160px; transition: transform 0.25s ease; }
+    .stat:hover { transform: translateY(-4px); }
     .stat:last-child { border-right: none; }
     .stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--accent); }
     .stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -105,8 +122,9 @@
     .cats-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; text-align: center; }
     .cats-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 900px; margin: 0 auto; }
     .cat-btn { display: flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: 600; color: var(--muted); background: var(--bg); border: 1px solid var(--border); transition: all 0.2s; font-family: 'Inter', sans-serif; white-space: nowrap; }
-    .cat-btn:hover { color: var(--text); border-color: var(--muted2); }
-    .cat-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .cat-btn:hover { color: var(--text); border-color: var(--muted2); transform: translateY(-2px) scale(1.04); }
+    .cat-btn:active { transform: scale(0.95); }
+    .cat-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); animation: popIn 0.3s ease; }
 
     /* DISCLOSURE */
     .disclosure { background: rgba(249,115,22,0.05); border: 1px solid rgba(249,115,22,0.15); border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; font-size: 0.75rem; color: #888; text-align: center; }
@@ -120,9 +138,17 @@
     .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     @media(min-width: 500px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
     @media(min-width: 700px) { .products-grid { grid-template-columns: repeat(4, 1fr); } }
-    .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
-    .product-card:hover { transform: translateY(-2px); border-color: var(--muted2); }
-    .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: var(--card2); }
+    .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; animation: fadeInUp 0.5s ease both; }
+    .product-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 12px 30px rgba(249,115,22,0.15); }
+    .product-card:hover .product-img { transform: scale(1.08); }
+    .product-card:nth-child(1) { animation-delay: 0.03s; }
+    .product-card:nth-child(2) { animation-delay: 0.08s; }
+    .product-card:nth-child(3) { animation-delay: 0.13s; }
+    .product-card:nth-child(4) { animation-delay: 0.18s; }
+    .product-card:nth-child(5) { animation-delay: 0.23s; }
+    .product-card:nth-child(6) { animation-delay: 0.28s; }
+    .product-card:nth-child(n+7) { animation-delay: 0.32s; }
+    .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: var(--card2); transition: transform 0.4s ease; }
     .product-img-placeholder { width: 100%; aspect-ratio: 1/1; background: linear-gradient(135deg, #1a1a1a, #222); display: flex; align-items: center; justify-content: center; font-size: 2rem; }
     .product-body { padding: 10px; }
     .product-badges { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 5px; }
@@ -131,8 +157,9 @@
     .badge-cat { background: rgba(249,115,22,0.1); color: var(--accent); border: 1px solid rgba(249,115,22,0.2); }
     .product-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.82rem; margin-bottom: 4px; line-height: 1.3; }
     .price-note { font-size: 0.68rem; color: var(--muted); margin-bottom: 4px; }
-    .buy-btn { display: block; text-align: center; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border: none; padding: 8px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.72rem; cursor: pointer; text-decoration: none; margin-top: 6px; transition: opacity 0.2s; }
-    .buy-btn:hover { opacity: 0.9; }
+    .buy-btn { display: block; text-align: center; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border: none; padding: 8px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.72rem; cursor: pointer; text-decoration: none; margin-top: 6px; transition: opacity 0.2s, transform 0.2s; }
+    .buy-btn:hover { opacity: 0.9; transform: scale(1.03); }
+    .buy-btn:active { transform: scale(0.97); }
 
     .loading-state { text-align: center; padding: 60px 20px; color: var(--muted); grid-column: 1/-1; }
     .loading-spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
@@ -335,18 +362,18 @@
   </div>
 </div>
 
-<div class="stats">
+<div class="stats" style="opacity:0;animation:fadeInUp 0.6s ease 0.54s forwards;">
   <div class="stat"><div class="stat-num" id="statProducts">0</div><div class="stat-label">Products</div></div>
   <div class="stat"><div class="stat-num">4.8★</div><div class="stat-label">Rating</div></div>
   <div class="stat"><div class="stat-num">10K+</div><div class="stat-label">Happy Buyers</div></div>
 </div>
 
-<div class="cats-section" id="products">
+<div class="cats-section reveal" id="products">
   <div class="cats-title">🗂️ Browse Categories</div>
   <div class="cats-grid" id="catsGrid"></div>
 </div>
 
-<div class="section">
+<div class="section reveal">
   <div class="products-header">
     <h3 id="currentCatTitle">🛍️ All Products</h3>
     <span class="products-count" id="productsCount"></span>
@@ -362,7 +389,7 @@
   </div>
 </div>
 
-<div class="newsletter" id="newsletter">
+<div class="newsletter reveal" id="newsletter">
   <h2>🔔 Get the Latest Deals</h2>
   <p>Subscribe for exclusive deals, new arrivals & discount codes</p>
   <div class="newsletter-form">
@@ -566,7 +593,7 @@ async function loadProducts() {
     const res = await fetch(SHEET_CSV);
     const text = await res.text();
     allProducts = parseCSV(text);
-    document.getElementById('statProducts').textContent = allProducts.length + '+';
+    animateCountUp(document.getElementById('statProducts'), allProducts.length);
     renderProducts('all');
   } catch(e) {
     document.getElementById('productsGrid').innerHTML = `<div class="empty-state"><div style="font-size:2rem">⚠️</div><p>Unable to load products. Please check your connection.</p></div>`;
@@ -612,6 +639,40 @@ window.subscribe = () => {
 
 buildCategories();
 loadProducts();
+
+// Count-up animation for stats
+function animateCountUp(el, target) {
+  let start = 0;
+  const duration = 900;
+  const startTime = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const val = Math.floor(eased * target);
+    el.textContent = val + '+';
+    if (progress < 1) requestAnimationFrame(tick);
+    else el.textContent = target + '+';
+  }
+  requestAnimationFrame(tick);
+}
+
+// Scroll reveal for sections
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Nav shadow on scroll
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 20) navEl.classList.add('scrolled');
+  else navEl.classList.remove('scrolled');
+}, { passive: true });
 </script>
 </body>
 </html>
