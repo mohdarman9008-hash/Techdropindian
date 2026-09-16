@@ -96,7 +96,30 @@
     .affiliate-banner span { color: var(--accent); font-weight: 600; }
 
     /* HERO */
-    .hero { padding: 50px 24px 36px; text-align: center; background: radial-gradient(ellipse at top, #1a0800 0%, #0a0a0a 70%); border-bottom: 1px solid var(--border); overflow: hidden; }
+    .hero { padding: 50px 24px 36px; text-align: center; background: radial-gradient(ellipse at top, #1a0800 0%, #0a0a0a 70%); border-bottom: 1px solid var(--border); overflow: hidden; position: relative; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .hero > *:not(.hero-bg) { position: relative; z-index: 1; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(50px); }
+    .orb1 { width: 260px; height: 260px; background: radial-gradient(circle, rgba(249,115,22,0.55), transparent 70%); top: -90px; left: -60px; animation: driftOrb1 11s ease-in-out infinite; }
+    .orb2 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(234,88,12,0.45), transparent 70%); bottom: -70px; right: -40px; animation: driftOrb2 14s ease-in-out infinite; }
+    .orb3 { width: 170px; height: 170px; background: radial-gradient(circle, rgba(255,140,66,0.4), transparent 70%); top: 30%; left: 55%; animation: driftOrb3 17s ease-in-out infinite; }
+    @keyframes driftOrb1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(50px,35px); } }
+    @keyframes driftOrb2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-40px,-45px); } }
+    @keyframes driftOrb3 { 0%,100% { transform: translate(-50%,0) scale(1); } 50% { transform: translate(-50%,-25px) scale(1.2); } }
+    .particles span { position: absolute; bottom: -10px; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; opacity: 0; animation: riseUp linear infinite; }
+    @keyframes riseUp { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.8; } 85% { opacity: 0.4; } 100% { transform: translateY(-260px); opacity: 0; } }
+    .particles span:nth-child(1) { left: 8%; animation-duration: 7s; animation-delay: 0s; }
+    .particles span:nth-child(2) { left: 18%; animation-duration: 9s; animation-delay: 1.2s; }
+    .particles span:nth-child(3) { left: 28%; animation-duration: 6.5s; animation-delay: 2.4s; }
+    .particles span:nth-child(4) { left: 40%; animation-duration: 8s; animation-delay: 0.6s; }
+    .particles span:nth-child(5) { left: 52%; animation-duration: 10s; animation-delay: 3s; }
+    .particles span:nth-child(6) { left: 63%; animation-duration: 7.5s; animation-delay: 1.8s; }
+    .particles span:nth-child(7) { left: 74%; animation-duration: 9.5s; animation-delay: 0.3s; }
+    .particles span:nth-child(8) { left: 85%; animation-duration: 6.8s; animation-delay: 2.1s; }
+    .particles span:nth-child(9) { left: 94%; animation-duration: 8.5s; animation-delay: 3.6s; }
+    .particles span:nth-child(10) { left: 3%; animation-duration: 11s; animation-delay: 4.2s; }
+    .particles span:nth-child(11) { left: 47%; animation-duration: 7.2s; animation-delay: 4.8s; }
+    .particles span:nth-child(12) { left: 70%; animation-duration: 9.8s; animation-delay: 5.4s; }
     .hero-badge { display: inline-block; background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 16px; opacity: 0; animation: fadeInUp 0.6s ease 0.05s forwards, floatBadge 3s ease-in-out 0.8s infinite; }
     .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.6rem, 5vw, 2.6rem); font-weight: 800; line-height: 1.15; margin-bottom: 12px; letter-spacing: -1px; opacity: 0; animation: fadeInUp 0.6s ease 0.18s forwards; }
     .hero h1 span { color: var(--accent); animation: glowPulse 2.5s ease-in-out 1s infinite; }
@@ -167,7 +190,9 @@
     .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); grid-column: 1/-1; }
 
     /* NEWSLETTER */
-    .newsletter { margin: 0 16px 32px; padding: 28px 20px; text-align: center; background: radial-gradient(ellipse at bottom, #1a0800, #111); border: 1px solid var(--border); border-radius: var(--radius); }
+    .newsletter { margin: 0 16px 32px; padding: 28px 20px; text-align: center; background: radial-gradient(ellipse at bottom, #1a0800, #111); border: 1px solid var(--border); border-radius: var(--radius); position: relative; overflow: hidden; }
+    .newsletter-orb { position: absolute; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.35), transparent 70%); filter: blur(50px); bottom: -80px; left: 50%; transform: translateX(-50%); animation: driftOrb3 13s ease-in-out infinite; z-index: 0; pointer-events: none; }
+    .newsletter > *:not(.newsletter-orb) { position: relative; z-index: 1; }
     .newsletter h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
     .newsletter p { color: var(--muted); font-size: 0.85rem; margin-bottom: 16px; }
     .newsletter-form { display: flex; gap: 8px; max-width: 340px; margin: 0 auto; flex-wrap: wrap; }
@@ -353,6 +378,15 @@
 </div>
 
 <div class="hero">
+  <div class="hero-bg">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="particles">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
   <div class="hero-badge">🇮🇳 India's Premium Product Store</div>
   <h1>Find The Best <span>Fashion & Tech</span> Products</h1>
   <p>Handpicked premium products with the best deals — trusted Amazon affiliate store, all in one place.</p>
@@ -390,6 +424,7 @@
 </div>
 
 <div class="newsletter reveal" id="newsletter">
+  <div class="newsletter-orb"></div>
   <h2>🔔 Get the Latest Deals</h2>
   <p>Subscribe for exclusive deals, new arrivals & discount codes</p>
   <div class="newsletter-form">
